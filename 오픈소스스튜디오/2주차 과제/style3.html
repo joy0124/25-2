@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>week2-assignment#1</title>
+    <style>
+        .div_navtop{
+            color: green;
+            background-color: white;
+            font-weight: bold;
+            font-size: 20px; 
+            margin-left: 15px;
+        }
+        .div_navtop_content{
+            color: black;
+            font-size: 20px;
+            margin-left: 15px;
+        }
+
+        .div_middle ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;  /* 가로로 나열 */
+            margin-left: 15px;
+        }
+        .div_middle ul li {
+            margin-top: 40px;
+            border: 1px solid grey;
+            font-weight: bold;
+            padding: 5px 50px;
+            background-color: gray;   /* 기본 박스색 */
+            margin-right: 10px;       /* 가로 간격 */
+            width: auto;              /* 가로 나열이므로 폭 고정 안 함 */
+            text-align: center;
+        }
+        /* li 안의 링크 기본 스타일 */
+        .div_middle ul li a {
+            text-decoration: none;   /* 밑줄 제거 */
+            color: whitesmoke;       /* 글자색 흰색 */
+            display: block;          /* 전체 li 영역이 클릭되도록 */
+        }
+        /* hover 효과 */
+        .div_middle ul li:hover {
+            background-color: black; /* 박스만 검정색으로 */
+        }
+        .div_middle ul li:hover a {
+            color: whitesmoke;       /* 글자색은 그대로 흰색 */
+            cursor: pointer;
+        }
+
+        .div_maincontent{
+            color: green;
+            margin-left: 15px;
+        }
+        .div_maincontent_con{
+            color:black;
+        }
+
+        .div_minbo_title{
+            color: green;
+            margin-left: 15px;
+        }
+        .div_minbo_con{
+            color: black;
+        }
+        .div_footer{
+            width: 96vw;
+            margin: 10px 0px 10px 10px;
+            padding: 5px;
+            color:black;
+            background-color: whitesmoke;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 15px;
+        }
+        .div_botton{
+            text-align: center;  
+            font-size: 12px;
+            margin-left: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 맨 위 공간-->
+    <div class="div_navtop">
+        <h1>Welcome to 강조이's Homepage (22400009)</h1>
+        <div class="div_navtop_content">Use the menu to select different Stylesheets</div>
+    </div>
+
+    <!-- 중간 콘텐츠 공간-->
+    <div class="div_maincontent">
+        <div class="div_middle">
+            <ul>
+                <li class="active"><a href="./style1.html">Stylesheet 1</a></li>
+                <li><a href="./style2.html">Stylesheet 2</a></li>
+                <li><a href="./style3.html">Stylesheet 3</a></li>
+                <li><a href="./style4.html">Stylesheet 4</a></li>
+                <li><a href="./index.html">No Stylesheet</a></li>
+            </ul>
+        </div>
+        <h1>Same Page Different Stylesheets</h1>
+        <div class="div_maincontent_con">
+            This is a demonstration of how different stylesheets can change the layout of your HTML page.
+            You can change the layout of this page by selecting different stylesheets in the menu,
+            or by selecting one of the following links:
+            Stylesheet1, Stylesheet2, Stylesheet3, Stylesheet4.
+        </div>
+        <div>
+            <a href="./style1.html">Stylesheet1</a>,
+            <a href="./style2.html">Stylesheet2</a>,
+            <a href="./style3.html">Stylesheet3</a>,
+            <a href="./style4.html">Stylesheet4</a>.
+        </div>
+    </div>
+
+    <!--아래에서 두번째 콘텐츠 공간-->
+    <div class="div_minbo">
+        <div class="div_minbo_title">
+            <h1>No Styles</h1>
+            <div class="div_minbo_con">
+                This page uses DIV elements to group different sections of the HTML page.
+                Click here to see how the page looks like with no stylesheet: No Stylesheet.
+            </div>
+            <a href="./index.html">No Stylesheet</a>.
+        </div>
+    </div>
+
+    <!--side bar 콘텐츠 공간-->
+    <div class="div_footer">
+        <h4>Side-Bar</h4>
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt
+        ut laoreet dolore magna aliquam erat volutpat.
+    </div>
+
+    <!--맨아래 콘텐츠 공간-->
+    <div class="div_botton">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+        laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+        ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor
+        in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis
+        at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue
+        duis dolore te feugait nulla facilisi.
+    </div>
+</body>
+</html>
