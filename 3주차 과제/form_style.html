@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>form_style.htm</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      width: auto;
+      margin-right: 5px;
+    }
+
+    fieldset {
+      border: 1px solid #aaa;
+      padding: 10px;
+      margin-top: 15px;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #333;
+    }
+
+    button {
+      margin-top: 15px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button[type="reset"] {
+      background-color: #f44336;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Checkout Form (Styled)</h1>
+
+  <!-- Lab1에서 만든 form 구조 그대로 가져오기 -->
+  <form action="#" method="post">
+
+    <label for="firstName">이름</label>
+    <input id="firstName" name="firstName" type="text" required />
+
+    <label for="lastName">성</label>
+    <input id="lastName" name="lastName" type="text" required />
+
+    <label for="username">사용자명</label>
+    <input id="username" name="username" type="text" required />
+
+    <label for="email">이메일</label>
+    <input id="email" name="email" type="email" placeholder="you@example.com" />
+
+    <label for="tel">전화번호</label>
+    <input id="tel" name="tel" type="tel" placeholder="010-1234-5678" />
+
+    <label for="address">주소</label>
+    <input id="address" name="address" type="text" required />
+
+    <label for="address2">상세주소</label>
+    <input id="address2" name="address2" type="text" />
+
+    <label for="country">국가</label>
+    <select id="country" name="country" required>
+      <option value="">선택...</option>
+      <option value="kr">대한민국</option>
+      <option value="us">미국</option>
+      <option value="jp">일본</option>
+    </select>
+
+    <label for="state">도/주</label>
+    <select id="state" name="state" required>
+      <option value="">선택...</option>
+      <option value="seoul">서울</option>
+      <option value="busan">부산</option>
+      <option value="gyeonggi">경기도</option>
+    </select>
+
+    <label for="zip">우편번호</label>
+    <input id="zip" name="zip" type="text" required />
+
+    <label for="deliveryDate">희망 배송일</label>
+    <input id="deliveryDate" name="deliveryDate" type="date" />
+
+    <label><input type="checkbox" name="sameAddress" value="yes" /> 결제 주소와 배송 주소 동일</label>
+    <label><input type="checkbox" name="saveInfo" value="yes" /> 다음 주문을 위해 정보 저장</label>
+
+    <fieldset>
+      <legend>결제 수단</legend>
+      <label><input type="radio" name="paymentMethod" value="credit" checked /> 신용카드</label>
+      <label><input type="radio" name="paymentMethod" value="debit" /> 체크카드</label>
+      <label><input type="radio" name="paymentMethod" value="paypal" /> PayPal</label>
+    </fieldset>
+
+    <label for="cc-name">카드 소유자 이름</label>
+    <input id="cc-name" name="cc-name" type="text" required />
+
+    <label for="cc-number">카드 번호</label>
+    <input id="cc-number" name="cc-number" type="text" required />
+
+    <label for="cc-exp">만료일</label>
+    <input id="cc-exp" name="cc-exp" type="month" />
+
+    <label for="cc-cvv">보안코드(CVV)</label>
+    <input id="cc-cvv" name="cc-cvv" type="number" />
+
+    <label for="memo">주문 메모</label>
+    <textarea id="memo" name="memo" rows="4" cols="40" placeholder="요청사항을 남겨주세요"></textarea>
+
+    <button type="submit">제출하기</button>
+    <button type="reset">초기화</button>
+  </form>
+</body>
+</html>

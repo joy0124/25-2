@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>form_nostyle.htm</title>
+</head>
+<body>
+
+  <form action="#" method="post">
+    <!-- 연락 정보 -->
+    <label for="firstName">이름</label>
+    <input id="firstName" name="firstName" type="text" required />
+    <br><br>
+
+    <label for="lastName">성</label>
+    <input id="lastName" name="lastName" type="text" required />
+    <br><br>
+
+    <label for="username">사용자명</label>
+    <input id="username" name="username" type="text" required />
+    <br><br>
+
+    <label for="email">이메일</label>
+    <input id="email" name="email" type="email" placeholder="you@example.com" />
+    <br><br>
+
+    <label for="tel">전화번호</label>
+    <input id="tel" name="tel" type="tel" placeholder="010-1234-5678" />
+    <br><br>
+
+    <!-- 주소 -->
+    <label for="address">주소</label>
+    <input id="address" name="address" type="text" required />
+    <br><br>
+
+    <label for="address2">상세주소</label>
+    <input id="address2" name="address2" type="text" />
+    <br><br>
+
+    <label for="country">국가</label>
+    <select id="country" name="country" required>
+      <option value="">선택...</option>
+      <option value="kr">대한민국</option>
+      <option value="us">미국</option>
+      <option value="jp">일본</option>
+    </select>
+    <br><br>
+
+    <label for="state">도/주</label>
+    <select id="state" name="state" required>
+      <option value="">선택...</option>
+      <option value="seoul">서울</option>
+      <option value="busan">부산</option>
+      <option value="gyeonggi">경기도</option>
+    </select>
+    <br><br>
+
+    <label for="zip">우편번호</label>
+    <input id="zip" name="zip" type="text" required />
+    <br><br>
+
+    <!-- 배송 옵션 (date, checkbox) -->
+    <label for="deliveryDate">희망 배송일</label>
+    <input id="deliveryDate" name="deliveryDate" type="date" />
+    <br><br>
+
+    <label>
+      <input type="checkbox" name="sameAddress" value="yes" />
+      결제 주소와 배송 주소 동일
+    </label>
+    <br>
+    <label>
+      <input type="checkbox" name="saveInfo" value="yes" />
+      다음 주문을 위해 정보 저장
+    </label>
+    <br><br>
+
+    <!-- 결제 수단 (radio) -->
+    <fieldset>
+      <legend>결제 수단</legend>
+      <label><input type="radio" name="paymentMethod" value="credit" checked /> 신용카드</label>
+      <label><input type="radio" name="paymentMethod" value="debit" /> 체크카드</label>
+      <label><input type="radio" name="paymentMethod" value="paypal" /> PayPal</label>
+    </fieldset>
+    <br>
+
+    <!-- 카드 정보 -->
+    <label for="cc-name">카드 소유자 이름</label>
+    <input id="cc-name" name="cc-name" type="text" required />
+    <br><br>
+
+    <label for="cc-number">카드 번호</label>
+    <input id="cc-number" name="cc-number" type="text" required />
+    <br><br>
+
+    <label for="cc-exp">만료일</label>
+    <input id="cc-exp" name="cc-exp" type="month" />
+    <br><br>
+
+    <label for="cc-cvv">보안코드(CVV)</label>
+    <input id="cc-cvv" name="cc-cvv" type="number" />
+    <br><br>
+
+    <!-- 메모 (textarea) -->
+    <label for="memo">주문 메모</label><br>
+    <textarea id="memo" name="memo" rows="4" cols="40" placeholder="요청사항을 남겨주세요"></textarea>
+    <br><br>
+
+    <button type="submit">제출하기</button>
+    <button type="reset">초기화</button>
+  </form>
+</body>
+</html>

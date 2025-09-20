@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>form.htm</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    input {
+      padding: 5px;
+      font-size: 14px;
+    }
+    button {
+      padding: 6px 12px;
+      margin-left: 5px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    button.add {
+      background-color: blue;
+      color: white;
+    }
+    button.clear {
+      background-color: green;
+      color: white;
+    }
+    ul {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dynamic Web page</h1>
+
+  <input type="text" id="itemInput" placeholder="apple, banana, kiwi" />
+  <button class="add" onclick="addItem()">추가</button>
+  <button class="clear" onclick="clearList()">삭제</button>
+
+  <ul id="itemList"></ul>
+
+  <script>
+    // 아이템 추가 함수
+    function addItem() {
+      let input = document.getElementById("itemInput");
+      let text = input.value.trim();
+
+      if (text !== "") {
+        // 콤마(,)로 여러 개 입력 가능
+        let items = text.split(",");
+        let list = document.getElementById("itemList");
+
+        items.forEach(function(item) {
+          let li = document.createElement("li");
+          li.textContent = item.trim();
+          list.appendChild(li);
+        });
+
+        input.value = ""; // 입력창 비우기
+      }
+    }
+
+    // 리스트 전체 삭제 함수
+    function clearList() {
+      document.getElementById("itemList").innerHTML = "";
+    }
+  </script>
+</body>
+</html>
