@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Friend Manager · 상세</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-body-tertiary">
+<main class="container py-4 page-title">
+  <h1 class="h4 mb-3">친구 상세</h1>
+
+
+  <div class="card card-basic">
+    <div class="card-body">
+      <h2 id="name" class="h5 mb-3"></h2>
+      <div class="table-responsive">
+        <table class="table table-sm detail-table">
+          <tbody>
+            <tr><th style="width:120px;">전화</th><td id="phone"></td></tr>
+            <tr><th>이메일</th><td id="email"></td></tr>
+            <tr><th>그룹</th><td id="group"></td></tr>
+            <tr><th>생일</th><td id="bday"></td></tr>
+            <tr><th>메모</th><td id="note"></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="d-flex gap-2 mt-3 actions">
+    <a class="btn btn-primary" href="add.html">추가</a>
+    <button class="btn btn-danger" id="btnDelete">삭제</button>
+    <a class="btn btn-outline-secondary" id="btnEdit" href="#">수정</a>
+    <a class="btn btn-outline-dark ms-auto" href="index.html">목록</a>
+  </div>
+</main>
+
+<script>
+ 
+  const params = new URLSearchParams(location.search);
+  const rawId = params.get('id');               
+  const idNum = Number(String(rawId).replace(/^E/,''));
+  const KEY = 'friendsData';
+
+
+  const baseData = [
+    {id:1,  name:'유건민', phone:'010-1234-5678', email:'Capybara@buse.com', group:'남새섬', bday:'1999-05-25', note:'카피바라 닮음'},
+    {id:2,  name:'엄지희', phone:'010-2222-3333', email:'Monkey@buse.com',   group:'여새섬', bday:'2003-04-28', note:'원숭이 좋아함'},
+    {id:3,  name:'구본준', phone:'010-1111-9999', email:'CatBoy@buse.com',   group:'남내기', bday:'2002-10-15', note:'성격이 고양이 같음'},
+    {id:4,  name:'이재석', phone:'010-5555-1212', email:'Willy@buse.com',    group:'남내기', bday:'2004-04-17', note:'윌리 닮음'},
+    {id:5,  name:'이주연', phone:'010-8787-3434', email:'juyeon@buse.com',   group:'여내기', bday:'2005-01-22', note:'남친 있음'},
+    {id:6,  name:'서예진', phone:'010-3030-9090', email:'Mango@buse.com',    group:'여내기', bday:'2005-02-11', note:'기계 학합 댄서임'},
+    {id:7,  name:'김지애', phone:'010-9898-5656', email:'Potato@buse.com',   group:'여내기', bday:'2005-03-28', note:'연하 좋아함'},
+    {id:8,  name:'허보라', phone:'010-1212-4545', email:'Purple@buse.com',   group:'여내기', bday:'2005-04-04', note:'생명 스터디원보다 새새를 더 좋아함'},
+    {id:9,  name:'설시형', phone:'010-4444-7878', email:'sel@buse.com',      group:'남내기', bday:'2004-02-25', note:'나이 속임'},
+    {id:10, name:'김태원', phone:'010-6767-1010', email:'MulliCheonjae@buse.com', group:'남내기', bday:'2005-05-25', note:'휴학 중'},
+    {id:11, name:'홍승희', phone:'010-5656-3434', email:'StrawberryMochi@buse.com', group:'남내기', bday:'2005-09-04', note:'가끔 연락'}
+  ];
+
+
+  const extras = JSON.parse(localStorage.getItem(KEY) || '[]');
+
+  
+  let record = extras.find(f => String(f.id) === String(idNum))
+            || baseData.find(f => String(f.id) === String(idNum));
+
+  
+  function bind(r){
+    const txt = (s)=> (s ?? '').toString();
+    document.getElementById('name').textContent  = txt(r?.name || '(이름 없음)');
+    document.getElementById('phone').textContent = txt(r?.phone || '');
+    document.getElementById('email').textContent = txt(r?.email || '');
+    document.getElementById('group').textContent = txt(r?.group || '');
+    document.getElementById('bday').textContent  = txt(r?.bday || '');
+    document.getElementById('note').textContent  = txt(r?.note || '');
+  }
+  bind(record || {});
+
+
+  const btnEdit = document.getElementById('btnEdit');
+  btnEdit.href = `edit.html?id=${encodeURIComponent(rawId||'')}`;
+
+
+  document.getElementById('btnDelete').addEventListener('click', ()=>{
+    if (!confirm('게시물을 삭제할까요?')) return;
+
+
+    const list = JSON.parse(localStorage.getItem(KEY) || '[]');
+    const idx = list.findIndex(f => String(f.id) === String(idNum));
+    if (idx > -1) {
+      list.splice(idx, 1);
+      localStorage.setItem(KEY, JSON.stringify(list));
+      alert('삭제되었습니다.');
+    } else {
+      alert('저장된 항목이 없어 삭제할 내용이 없습니다.');
+    }
+    location.href = 'index.html';
+  });
+</script>
+</body>
+</html>
