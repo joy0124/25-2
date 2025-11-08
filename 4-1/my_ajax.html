@@ -1,0 +1,188 @@
+
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AJAX CRUD Demo (XHR + json-server)</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:900px;margin:40px auto;padding:0 16px;}
+    h1{margin-bottom:8px}
+    .row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+    input{padding:8px;border:1px solid #bbb;border-radius:8px}
+    button{padding:8px 12px;border:0;border-radius:10px;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+    button.primary{background:#2563eb;color:white}
+    button.warn{background:#ef4444;color:white}
+    table{width:100%;border-collapse:collapse;margin-top:10px}
+    th,td{border-bottom:1px solid #eee;padding:8px 10px;text-align:left}
+    tr:hover{background:#fafafa}
+    .muted{color:#6b7280}
+    #status{margin-top:8px}
+    .small{font-size:12px}
+  </style>
+</head>
+<body>
+  <h1>AJAX 실습 – JSON Server CRUD</h1>
+  <p class="muted small">서버 실행: <code>json-server --watch my_data.json --port 3000</code></p>
+
+  <div class="row">
+    <button id="btnLoad" class="primary">학생데이터 가져오기 (GET)</button>
+    <button id="btnCreate">학생데이터 추가 (POST)</button>
+    <button id="btnUpdate">선택 항목 수정 (PUT)</button>
+    <button id="btnDelete" class="warn">선택 항목 삭제 (DELETE)</button>
+  </div>
+
+  <div class="row">
+    <input id="name" placeholder="name" />
+    <input id="age" type="number" min="0" placeholder="age" />
+    <input id="major" placeholder="major" />
+    <input id="email" placeholder="email" />
+  </div>
+
+  <div id="status" class="muted small"></div>
+
+  <table id="tbl">
+    <thead>
+      <tr><th style="width:60px">id</th><th>name</th><th>age</th><th>major</th><th>email</th></tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+<script>
+const API = "http://localhost:3000/students";
+let selectedId = null;
+
+window.onload = () => {
+  byId("btnLoad").addEventListener("click", getStudents);
+  byId("btnCreate").addEventListener("click", postStudent);
+  byId("btnUpdate").addEventListener("click", () => {
+    if(!selectedId){ return setStatus("수정할 행을 클릭해 먼저 선택하세요."); }
+    putStudent(selectedId);
+  });
+  byId("btnDelete").addEventListener("click", () => {
+    if(!selectedId){ return setStatus("삭제할 행을 클릭해 먼저 선택하세요."); }
+    if(confirm(`#${selectedId} 항목을 삭제할까요?`)) deleteStudent(selectedId);
+  });
+  getStudents(); // 초기 로드
+};
+
+function byId(id){ return document.getElementById(id); }
+function setStatus(msg){ byId("status").textContent = msg; }
+
+// GET
+function getStudents(){
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", API);
+  xhr.setRequestHeader("content-type", "application/json");
+  xhr.onload = () => {
+    if(xhr.status === 200){
+      const data = JSON.parse(xhr.response);
+      renderTable(data);
+      setStatus(`총 ${data.length}건 로드 완료.`);
+    }else{
+      setStatus(`GET 실패: ${xhr.status} ${xhr.statusText}`);
+    }
+  };
+  xhr.send();
+}
+
+// POST
+function postStudent(){
+  const payload = getFormData();
+  if(!payload) return;
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", API);
+  xhr.setRequestHeader("content-type", "application/json; charset=UTF-8");
+  xhr.onload = () => {
+    if(xhr.status === 201){
+      clearForm();
+      getStudents();
+      setStatus("추가 완료!");
+    }else{
+      setStatus(`POST 실패: ${xhr.status} ${xhr.statusText}`);
+    }
+  };
+  xhr.send(JSON.stringify(payload));
+}
+
+// PUT
+function putStudent(id){
+  const payload = getFormData();
+  if(!payload) return;
+  const xhr = new XMLHttpRequest();
+  xhr.open("PUT", `${API}/${id}`);
+  xhr.setRequestHeader("content-type", "application/json; charset=UTF-8");
+  xhr.onload = () => {
+    if(xhr.status === 200){
+      clearForm();
+      selectedId = null;
+      getStudents();
+      setStatus("수정 완료!");
+    }else{
+      setStatus(`PUT 실패: ${xhr.status} ${xhr.statusText}`);
+    }
+  };
+  xhr.send(JSON.stringify(payload));
+}
+
+// DELETE
+function deleteStudent(id){
+  const xhr = new XMLHttpRequest();
+  xhr.open("DELETE", `${API}/${id}`);
+  xhr.onload = () => {
+    if(xhr.status === 200){
+      selectedId = null;
+      clearForm();
+      getStudents();
+      setStatus("삭제 완료!");
+    }else{
+      setStatus(`DELETE 실패: ${xhr.status} ${xhr.statusText}`);
+    }
+  };
+  xhr.send();
+}
+
+// Helpers
+function renderTable(rows){
+  const tbody = byId("tbody");
+  tbody.innerHTML = "";
+  rows.forEach(row => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${row.id}</td><td>${escapeHtml(row.name)}</td><td>${row.age}</td><td>${escapeHtml(row.major)}</td><td>${escapeHtml(row.email)}</td>`;
+    tr.addEventListener("click", () => {
+      selectedId = row.id;
+      byId("name").value = row.name;
+      byId("age").value = row.age;
+      byId("major").value = row.major;
+      byId("email").value = row.email;
+      setStatus(`#${row.id} 선택됨 – 위 입력창에서 수정 후 "선택 항목 수정" 클릭`);
+    });
+    tbody.appendChild(tr);
+  });
+}
+
+function getFormData(){
+  const name = byId("name").value.trim();
+  const age = Number(byId("age").value);
+  const major = byId("major").value.trim();
+  const email = byId("email").value.trim();
+  if(!name || !age || !major || !email){
+    setStatus("모든 입력칸을 채워주세요.");
+    return null;
+  }
+  return { name, age, major, email };
+}
+
+function clearForm(){
+  byId("name").value = "";
+  byId("age").value = "";
+  byId("major").value = "";
+  byId("email").value = "";
+}
+
+function escapeHtml(s){
+  return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+</script>
+</body>
+</html>
